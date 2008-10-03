@@ -14,7 +14,8 @@ class Markov
     @data = {}
   end
   
-  def add(*data)
-    raise ArgumentError, 'at least one argument required' if data.empty?
+  def add(*items)
+    raise ArgumentError, 'at least one argument required' if items.empty?
+    data[items.first] = {}
   end
 end

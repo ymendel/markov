@@ -52,4 +52,26 @@ describe Markov do
       lambda { @markov.add }.should raise_error(ArgumentError)
     end
   end
+  
+  describe 'checking data after adding' do
+    before :each do
+      Markov.instance_eval do
+        public :data, :data=
+      end
+    end
+    
+    describe 'a single argument' do
+      it 'should add the argument when its data is empty' do
+        @markov.reset
+        @markov.add('a')
+        @markov.data.should == { 'a' => {} }
+      end
+      
+      it 'should add the argument to already-present data' do
+        @markov.data = { 'a' => { 'b' => {} } }
+        @markov.add('e')
+        @markov.data = { 'a' => { 'b' => {} }, 'e' => {} }
+      end
+    end
+  end
 end
