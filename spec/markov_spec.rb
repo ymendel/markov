@@ -17,6 +17,24 @@ describe Markov do
     end
   end
   
+  it 'should reset itself' do
+    @markov.should respond_to(:reset)
+  end
+  
+  describe 'when resetting itself' do
+    before :each do
+      Markov.instance_eval do
+        public :data, :data=
+      end
+    end
+    
+    it 'should empty its data' do
+      @markov.data = { 'a' => { 'b' => {} } }
+      @markov.reset
+      @markov.data.should == {}
+    end
+  end
+  
   it 'should allow adding' do
     @markov.should respond_to(:add)
   end

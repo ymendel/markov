@@ -3,10 +3,14 @@ $:.unshift(File.dirname(__FILE__)) unless
 
 class Markov
   private
-  attr_reader :data
+  attr_accessor :data
   
   public
   def initialize
+    @data = {}
+  end
+  
+  def reset
     @data = {}
   end
   
