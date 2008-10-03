@@ -1,4 +1,4 @@
-module Markov
+class Markov
   module VERSION #:nodoc:
     MAJOR = 0
     MINOR = 0
