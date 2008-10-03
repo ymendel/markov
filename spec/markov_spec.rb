@@ -1,11 +1,25 @@
 require File.dirname(__FILE__) + '/spec_helper.rb'
 
-# Time to add your specs!
-# http://rspec.info/
-describe "Place your specs here" do
-  
-  it "find this spec in spec directory" do
-    violated "Be sure to write your specs"
+describe Markov do
+  before :each do
+    @markov = Markov.new
   end
   
+  it 'should allow adding' do
+    @markov.should respond_to(:add)
+  end
+  
+  describe 'adding' do
+    it 'should accept an argument' do
+      lambda { @markov.add('a') }.should_not raise_error(ArgumentError)
+    end
+    
+    it 'should accept multiple arguments' do
+      lambda { @markov.add('a', 'b', 'c', 'd', 'e', 'f') }.should_not raise_error(ArgumentError)
+    end
+    
+    it 'should require at least one argument' do
+      lambda { @markov.add }.should raise_error(ArgumentError)
+    end
+  end
 end
