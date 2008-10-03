@@ -5,6 +5,18 @@ describe Markov do
     @markov = Markov.new
   end
   
+  describe 'when initialized' do
+    before :each do
+      Markov.instance_eval do
+        public :data
+      end
+    end
+    
+    it 'should have empty data' do
+      @markov.data.should == {}
+    end
+  end
+  
   it 'should allow adding' do
     @markov.should respond_to(:add)
   end
