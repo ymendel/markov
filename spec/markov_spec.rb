@@ -98,6 +98,12 @@ describe Markov do
         @markov.add('a', 'f')
         @markov.data.should == { 'a' => [ 'b', 'f' ], 'f' => [] }
       end
+      
+      it 'should add the arguments to already-present data about the same linkage' do
+        @markov.data = { 'a' => [ 'b' ] }
+        @markov.add('a', 'b')
+        @markov.data.should == { 'a' => [ 'b', 'b' ], 'b' => [] }
+      end
     end
     
     describe 'many arguments' do
@@ -117,6 +123,12 @@ describe Markov do
         @markov.data = { 'a' => [ 'b' ], 'f' => [ 'q' ] }
         @markov.add('a', 'f', 'g', 'h', 'i')
         @markov.data.should == { 'a' => [ 'b', 'f' ], 'f' => [ 'q', 'g' ], 'g' => [ 'h' ], 'h' => [ 'i' ], 'i' => [] }
+      end
+      
+      it 'should add the arguments to already-present data about the same linkage' do
+        @markov.data = { 'a' => [ 'b' ], 'f' => [ 'g' ] }
+        @markov.add('a', 'b', 'e', 'f', 'g', 'h', 'i')
+        @markov.data.should == { 'a' => [ 'b', 'b' ], 'b' => [ 'e' ], 'e' => [ 'f' ], 'f' => [ 'g', 'g' ], 'g' => [ 'h' ], 'h' => [ 'i' ], 'i' => [] }
       end
     end
   end
