@@ -72,6 +72,12 @@ describe Markov do
         @markov.add('e')
         @markov.data.should == { 'a' => [ 'b' ], 'e' => [] }
       end
+      
+      it 'should add the argument and retain already-present data' do
+        @markov.data = { 'a' => [ 'b' ] }
+        @markov.add('a')
+        @markov.data.should == { 'a' => [ 'b' ] }
+      end
     end
     
     describe 'a pair of arguments' do
@@ -86,6 +92,12 @@ describe Markov do
         @markov.add('e', 'f')
         @markov.data.should == { 'a' => [ 'b' ], 'e' => [ 'f' ], 'f' => [] }
       end
+      
+      it 'should add the arguments and retain already-present data' do
+        @markov.data = { 'a' => [ 'b' ] }
+        @markov.add('a', 'f')
+        @markov.data.should == { 'a' => [ 'b', 'f' ], 'f' => [] }
+      end
     end
     
     describe 'many arguments' do
@@ -99,6 +111,12 @@ describe Markov do
         @markov.data = { 'a' => [ 'b' ] }
         @markov.add('e', 'f', 'g', 'h', 'i')
         @markov.data.should == { 'a' => [ 'b' ], 'e' => [ 'f' ], 'f' => [ 'g' ], 'g' => [ 'h' ], 'h' => [ 'i' ], 'i' => [] }
+      end
+      
+      it 'should add the arguments and retain already-present data' do
+        @markov.data = { 'a' => [ 'b' ], 'f' => [ 'q' ] }
+        @markov.add('a', 'f', 'g', 'h', 'i')
+        @markov.data.should == { 'a' => [ 'b', 'f' ], 'f' => [ 'q', 'g' ], 'g' => [ 'h' ], 'h' => [ 'i' ], 'i' => [] }
       end
     end
   end
