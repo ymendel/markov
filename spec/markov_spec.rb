@@ -73,5 +73,33 @@ describe Markov do
         @markov.data.should == { 'a' => [ 'b' ], 'e' => [] }
       end
     end
+    
+    describe 'a pair of arguments' do
+      it 'should add the arguments when its data is empty' do
+        @markov.reset
+        @markov.add('a', 'b')
+        @markov.data.should == { 'a' => [ 'b' ], 'b' => [] }
+      end
+      
+      it 'should add the arguments to already-present data' do
+        @markov.data = { 'a' => [ 'b' ] }
+        @markov.add('e', 'f')
+        @markov.data.should == { 'a' => [ 'b' ], 'e' => [ 'f' ], 'f' => [] }
+      end
+    end
+    
+    describe 'many arguments' do
+      it 'should add the arguments when its data is empty' do
+        @markov.reset
+        @markov.add('a', 'b', 'c', 'd', 'e')
+        @markov.data.should == { 'a' => [ 'b' ], 'b' => [ 'c' ], 'c' => [ 'd' ], 'd' => [ 'e' ], 'e' => [] }
+      end
+      
+      it 'should add the arguments to already-present data' do
+        @markov.data = { 'a' => [ 'b' ] }
+        @markov.add('e', 'f', 'g', 'h', 'i')
+        @markov.data.should == { 'a' => [ 'b' ], 'e' => [ 'f' ], 'f' => [ 'g' ], 'g' => [ 'h' ], 'h' => [ 'i' ], 'i' => [] }
+      end
+    end
   end
 end

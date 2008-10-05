@@ -16,6 +16,9 @@ class Markov
   
   def add(*items)
     raise ArgumentError, 'at least one argument required' if items.empty?
-    data[items.first] = []
+    items[0..-2].zip(items[1..-1]).each do |a, b|
+      data[a] = [b]
+    end
+    data[items.last] = []
   end
 end
