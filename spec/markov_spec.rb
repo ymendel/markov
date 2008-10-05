@@ -29,7 +29,7 @@ describe Markov do
     end
     
     it 'should empty its data' do
-      @markov.data = { 'a' => { 'b' => {} } }
+      @markov.data = { 'a' => [ 'b' ] }
       @markov.reset
       @markov.data.should == {}
     end
@@ -64,13 +64,13 @@ describe Markov do
       it 'should add the argument when its data is empty' do
         @markov.reset
         @markov.add('a')
-        @markov.data.should == { 'a' => {} }
+        @markov.data.should == { 'a' => [] }
       end
       
       it 'should add the argument to already-present data' do
-        @markov.data = { 'a' => { 'b' => {} } }
+        @markov.data = { 'a' => [ 'b' ] }
         @markov.add('e')
-        @markov.data = { 'a' => { 'b' => {} }, 'e' => {} }
+        @markov.data.should == { 'a' => [ 'b' ], 'e' => [] }
       end
     end
   end

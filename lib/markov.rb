@@ -16,6 +16,6 @@ class Markov
   
   def add(*items)
     raise ArgumentError, 'at least one argument required' if items.empty?
-    data[items.first] = {}
+    data[items.first] = []
   end
 end
