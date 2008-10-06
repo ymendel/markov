@@ -1,23 +1,35 @@
 = markov
 
-* FIX (url)
-
 == DESCRIPTION:
 
-FIX (describe your package)
+A simple Markov chain implementation.
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+* Presently only uses chains of length 1
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+  require 'markov'
+  
+  m = Markov.new
+  words = [ ... ]
+  m.add(*words)
+  m.generate(10)  # => ["show", "off", "what", "Houston", "is", "far", "from", "a", "cow", "grazing"]
+  
+  m.reset
+  
+  m.add(*(1..10).to_a)
+  m.add(2,4,6,8)
+  m.add(1,3,5,7,9)
+  m.add(1,5,7)
+  m.add(2,6,10)
+  m.generate  # => [2, 3, 5, 6, 10]
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* Ruby
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+* gem install markov

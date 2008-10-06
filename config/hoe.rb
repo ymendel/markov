@@ -2,7 +2,7 @@ require 'markov/version'
 
 AUTHOR = 'Yossef Mendelssohn'  # can also be an array of Authors
 EMAIL = "ymendel@pobox.com"
-DESCRIPTION = "description of gem"
+DESCRIPTION = 'simple markov chains'
 GEM_NAME = 'markov' # what ppl will type to install your gem
 RUBYFORGE_PROJECT = 'yomendel' # The unix name for your project
 HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
