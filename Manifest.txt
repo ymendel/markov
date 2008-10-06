@@ -6,11 +6,14 @@ Rakefile
 config/hoe.rb
 config/requirements.rb
 lib/markov.rb
+lib/markov/core_ext.rb
+lib/markov/core_ext/array.rb
 lib/markov/version.rb
 script/console
 script/destroy
 script/generate
 setup.rb
+spec/array_spec.rb
 spec/markov_spec.rb
 spec/spec.opts
 spec/spec_helper.rb
