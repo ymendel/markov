@@ -139,10 +139,18 @@ describe Markov do
   
   describe 'generating' do
     before :each do
-      @data = { 'a' => ['b', 'c'], 'b' => [], 'c' => [], 'd' => ['e'], 'e' => [] }
+      @data = { 'a' => ['b', 'c'], 'b' => ['c'], 'c' => ['d'], 'd' => ['e'], 'e' => [] }
       @markov.stubs(:data).returns(@data)
       @keys = @data.keys
       @data.stubs(:keys).returns(@keys)
+    end
+    
+    it 'should accept an argument' do
+      lambda { @markov.generate(5) }.should_not raise_error(ArgumentError)
+    end
+    
+    it 'should not require an argument' do
+      lambda { @markov.generate }.should_not raise_error(ArgumentError)
     end
     
     it 'should get its data' do
@@ -195,6 +203,10 @@ describe Markov do
       item = key_data.random
       key_data.stubs(:random).returns(item)
       @markov.generate.should == [key, item]
+    end
+    
+    it 'should limit the returned items if given an argument' do
+      @markov.generate(1).length.should == 1
     end
     
     it 'should return an empty array if there are no keys' do

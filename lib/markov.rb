@@ -22,10 +22,10 @@ class Markov
     items[0..-2].zip(items[1..-1]).each { |a, b|  data[a].push(b) }
   end
   
-  def generate
+  def generate(length = 1.0/0)
     result = []
     items  = data.keys
-    while !items.empty?
+    while !items.empty? and result.length < length
       item = items.random
       result.push item
       items = data[item]
