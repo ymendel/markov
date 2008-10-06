@@ -132,4 +132,74 @@ describe Markov do
       end
     end
   end
+  
+  it 'should generate' do
+    @markov.should respond_to(:generate)
+  end
+  
+  describe 'generating' do
+    before :each do
+      @data = { 'a' => ['b', 'c'], 'b' => [], 'c' => [], 'd' => ['e'], 'e' => [] }
+      @markov.stubs(:data).returns(@data)
+      @keys = @data.keys
+      @data.stubs(:keys).returns(@keys)
+    end
+    
+    it 'should get its data' do
+      @markov.expects(:data).returns(@data)
+      @markov.generate
+    end
+    
+    it "should get its data's keys" do
+      @data.expects(:keys).returns(@keys)
+      @markov.generate
+    end
+    
+    it 'should get a random key' do
+      @keys.expects(:random).returns(@keys.first)
+      @markov.generate
+    end
+    
+    it 'should access the data for the returned key' do
+      key = @keys.first
+      @keys.stubs(:random).returns(key)
+      @data.expects(:[]).with(key).returns([])
+      @markov.generate
+    end
+    
+    it 'should get a random element from the data for the returned key' do
+      key = @keys.first
+      key_data = @data[key]
+      @keys.stubs(:random).returns(key)
+      @data.stubs(:[]).returns([])
+      @data.stubs(:[]).with(key).returns(key_data)
+      key_data.expects(:random).returns(key_data.first)
+      @markov.generate
+    end
+    
+    it 'should not get an element from the data for the returned key if that data is empty' do
+      key = @keys.first
+      key_data = []
+      @keys.stubs(:random).returns(key)
+      @data.stubs(:[]).with(key).returns(key_data)
+      key_data.expects(:random).never
+      @markov.generate
+    end
+    
+    it 'should return the items' do
+      key = @keys.first
+      key_data = @data[key]
+      @keys.stubs(:random).returns(key)
+      @data.stubs(:[]).returns([])
+      @data.stubs(:[]).with(key).returns(key_data)
+      item = key_data.random
+      key_data.stubs(:random).returns(item)
+      @markov.generate.should == [key, item]
+    end
+    
+    it 'should return an empty array if there are no keys' do
+      @data.stubs(:keys).returns([])
+      @markov.generate.should == []
+    end
+  end
 end

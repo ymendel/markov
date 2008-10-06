@@ -21,4 +21,15 @@ class Markov
     items.each { |item|  data[item] ||= [] }
     items[0..-2].zip(items[1..-1]).each { |a, b|  data[a].push(b) }
   end
+  
+  def generate
+    result = []
+    items  = data.keys
+    while !items.empty?
+      item = items.random
+      result.push item
+      items = data[item]
+    end
+    result
+  end
 end
